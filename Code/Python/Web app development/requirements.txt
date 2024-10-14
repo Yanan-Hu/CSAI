@@ -1,9 +1,0 @@
-joblib~=1.4.2
-numpy~=1.26.4
-Flask~=3.0.3
-catboost~=1.2.7
-gunicorn~=23.0.0
-shap~=0.46.0
-matplotlib~=3.9.2
-pandas~=2.2.2
-openpyxl
