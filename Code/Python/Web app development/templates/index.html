@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicting Caesarean Section following induction of labour, online calculator</title>
+    <script>
+        function saveSelection() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                if (radio.checked) {
+                    localStorage.setItem(radio.name, radio.value);
+                }
+            });
+
+            const numbers = document.querySelectorAll('input[type="number"]');
+            numbers.forEach(number => {
+                localStorage.setItem(number.name, number.value);
+            });
+
+            const texts = document.querySelectorAll('input[type="text"]');
+            texts.forEach(text => {
+                localStorage.setItem(text.name, text.value);
+            });
+
+             localStorage.setItem('scrollPosition', window.scrollY);
+        }
+
+        function loadSelection() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                const savedValue = localStorage.getItem(radio.name);
+                if (savedValue && radio.value === savedValue) {
+                    radio.checked = true;
+                }
+            });
+
+            const numbers = document.querySelectorAll('input[type="number"]');
+            numbers.forEach(number => {
+                const savedValue = localStorage.getItem(number.name);
+                if (savedValue) {
+                    number.value = savedValue;
+                }
+            });
+
+            const texts = document.querySelectorAll('input[type="text"]');
+            texts.forEach(text => {
+                const savedValue = localStorage.getItem(text.name);
+                if (savedValue) {
+                    text.value = savedValue;
+                }
+            });
+        }
+
+        window.onload = loadSelection;
+
+        document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var scrollPosition = localStorage.getItem('scrollPosition');
+            if (scrollPosition) {
+                window.scrollTo(0, parseInt(scrollPosition, 10));
+                localStorage.removeItem('scrollPosition');
+            }
+            }, 100);
+        });
+
+        window.addEventListener('beforeunload', function() {
+            localStorage.setItem('scrollPosition', window.scrollY);
+        });
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            margin: 0 auto;
+            padding: 6%;
+            padding-top: 2%;
+            background-color: #f4f4f4;
+        }
+
+        form {
+            background: #fff;
+            padding: 2%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .input-group {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                margin-right: 1rem;
+        }
+
+        .input-item {
+            display: flex;
+            flex: 1 1 30%;
+            min-width: 350px;
+            max-width: 450px;
+            align-items: center;
+
+        }
+
+        .input-item label {
+            flex: 1;
+            margin-right: 0.5rem;
+            min-width: 250px;
+        }
+
+        .input-item input {
+            flex: 1;
+            max-width: 60px;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 0.2rem;
+            font-size: 0.9rem;
+            background: linear-gradient(135deg, #f0f0f0, #dcdcdc);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #333;
+            transition: transform 0.2s;
+        }
+
+        label em {
+            font-style: italic;
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 20%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        button[type="submit"], button[type="reset"] {
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(135deg, #4682B4, #5A9BD5);
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, #5A9BD5, #4682B4);
+        }
+
+        button[type="reset"] {
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+        }
+
+        button[type="reset"]:hover {
+            background: linear-gradient(135deg, #66BB6A, #4CAF50);
+        }
+
+        button {
+            margin-right: 5%;
+        }
+
+        form * {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        form *:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        form div:hover {
+        transform: none;
+        box-shadow: none;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            appendToBody: true
+        }
+
+        .info-icon {
+            font-size: 1em;
+            color: #f8482c;
+            display: inline-flex;
+            font-weight: bold;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            min-width: 480px;
+            background-color: #4682B4;
+            color: #fff;
+            text-align: align;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 0;
+            right: auto;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .tooltip:hover .tooltiptext,
+        .tooltip:focus .tooltiptext,
+        .tooltip .tooltiptext:hover {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .tooltip .tooltiptext a {
+            color: #00f;
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            color: #2c3e50;
+            text-align: center;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            bottom: 0;
+            left: 0;
+            background-color: #2c3e50;
+            animation: slideIn 1s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        h2 {
+            color: #333;
+            text-align: left;
+            font-size: 1.5rem;
+        }
+
+        .prediction {
+            font-size: 1.5rem;
+            padding: 1%;
+            text-align: center;
+            position: absolute;
+            bottom: -85%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+
+        .bar-container {
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to right, lightgreen, red);
+            position: relative;
+            margin-top: 2%;
+        }
+
+        .indicator {
+            width: 6px;
+            height: 160%;
+            background-color: #4682B4;
+            position: absolute;
+            top: -30%;
+            transition: background-color 0.5s ease;
+        }
+
+        .indicator:hover {
+            animation: move 0.5s ease-in-out;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .info {
+            background: #e7f3fe;
+            border-left: 6px solid #2196F3;
+            padding: 1%;
+            margin-bottom: 2%;
+        }
+
+        @media (max-width: 600px) {
+              body {
+                padding: 2%;
+                padding-top: 2%;
+            }
+
+            .input-item {
+                flex: 1 1 100%;
+                margin-right: 0;
+                margin-bottom: 0.1rem;
+            }
+
+            .input-item:last-child {
+                margin-bottom: 0;
+            }
+
+            label {display: block !important;
+                font-size: 3vw;
+            }
+
+            input[type="number"], input[type="text"] {
+                padding: 2%;
+                 font-size: 2.5vw;
+            }
+
+            button[type="submit"], button[type="reset"] {
+                font-size: 4vw;
+            }
+
+            h1 {
+                font-size: 6vw;
+            }
+
+            h2{
+                font-size: 4vw;
+            }
+
+            .prediction {
+                font-size: 4vw;
+            }
+
+           .tooltip .tooltiptext {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            }
+        }
+    </style>
+
+    <script>
+    document.querySelectorAll('.tooltip').forEach(function(tooltip) {
+        let timeout;
+        tooltip.addEventListener('mouseenter', function() {
+            clearTimeout(timeout);
+            tooltip.querySelector('.tooltiptext').style.visibility = 'visible';
+            tooltip.querySelector('.tooltiptext').style.opacity = '1';
+        });
+        tooltip.addEventListener('mouseleave', function() {
+            timeout = setTimeout(function() {
+                tooltip.querySelector('.tooltiptext').style.visibility = 'hidden';
+                tooltip.querySelector('.tooltiptext').style.opacity = '0';
+            }, 2);
+        });
+    });
+    </script>
+
+</head>
+
+<body>
+
+    <h1>Predicting Caesarean Section Following Induction of Labour <br>(CSAI Web App)</h1>
+
+    <div class="info">
+            <p><strong>Important Information:</strong></p>
+            <p>This calculator is only applicable to women who consider induction of labour and meet the eligibility criteria (singleton, cephalic, term, and no prior history of caesarean section).</p>
+            <p>It must be used in addition to, and not as a substitute for, appropriate clinical judgement.</p>
+
+            <p><strong>Instructions:</strong></p>
+            <p>All fields need to be answered. Default values have been pre-filled for demonstration purposes only.</p>
+            <p>For  fill-in-the-blank questions except postcode, if the information is not known or uncertain, please enter 99.
+            For an unknown postcode, please enter 9999.</p>
+            <p>Hover over the information icon <span style="color: #f8482c; font-weight: bold;">i</span> for more details.</p>
+
+    </div>
+
+    <form method="POST" onsubmit="saveSelection()" id="myForm" action="/">
+        <div class="input-group">
+            <div class="input-item">
+                <label>Maternal age (years):</label>
+                <input type="number" name="mother_age" min="13" max="99" required value="31">
+            </div>
+
+            <div class="input-item">
+                <label class="tooltip">Pre-pregnancy BMI (kg/m²):
+                    <span class="info-icon">i</span>
+                          <span class="tooltiptext" style="min-width: 0; !important;">Enter BMI as an integer or one decimal.</span>
+                </label>
+                <input type="number" name="bmi" min="10" max="99" step="0.1" required value="26">
+            </div>
+
+            <div class="input-item">
+                 <label class="tooltip" for="postcode">Postcode of woman's primary residence:
+                     <span class="info-icon">i</span>
+                      <span class="tooltiptext">To identify residential area of rurality based on the classification used by the Australian Bureau of Statistics.
+                       <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/remoteness-structure/remoteness-areas" target="_blank">Learn more</a>
+                      </span>
+                 </label>
+                <input type="text" id="postcode" name="postcode" pattern="\d{4}" style="max-width: 60px;" title="Postcode must be a 4-digit number" required value="3151">
+             </div>
+
+        </div>
+
+    <label class="tooltip">Planned weeks of gestation for induction of labour:
+        <span class="info-icon">i</span>
+              <span class="tooltiptext">Please enter your best estimate based on your plan or doctor's advice. You can update this number later if needed.
+              </span>
+    </label>
+
+    <input type="radio" name="gest_weeks" value="37" required> 37
+    <input type="radio" name="gest_weeks" value="38" required> 38
+    <input type="radio" name="gest_weeks" value="39" checked> 39
+    <input type="radio" name="gest_weeks" value="40" required> 40
+    <input type="radio" name="gest_weeks" value="41" required> 41<br><br>
+
+    <label class="tooltip">Have you given birth before:
+        <span class="info-icon">i</span>
+              <span class="tooltiptext">Includes livebirth or stillbirth of at least 20 weeks gestation or at least 400 grams birth weight.
+              </span>
+    </label>
+    <input type="radio" name="parity" value="1" required> Yes (with prior vaginal birth)
+    <input type="radio" name="parity" value="0" checked> No
+    <input type="radio" name="parity" value="9" required> Not known<br><br>
+
+    <label>Giving birth in a private hospital:</label>
+    <input type="radio" name="private_hospital" value="1" required> Yes
+    <input type="radio" name="private_hospital" value="0" checked> No
+    <input type="radio" name="private_hospital" value="9" required> Not known<br><br>
+
+    <label>Smoked <em>before</em> 20 weeks of gestation:</label>
+    <input type="radio" name="smoke_b20" value="1" required> Yes
+    <input type="radio" name="smoke_b20" value="0" checked> No
+    <input type="radio" name="smoke_b20" value="9" required> Not known<br><br>
+
+
+    <label class="tooltip" >Pre-existing diabetes before current pregnancy:
+        <span class="info-icon">i</span>
+           <span class="tooltiptext" style="min-width: 0; !important;">Includes Type 1, Type 2, or any other types of diabetes.</span>
+    </label>
+    <input type="radio" name="pre_diab" value="1" required> Yes
+    <input type="radio" name="pre_diab" value="0" checked> No/Not known<br><br>
+
+
+    <label class="tooltip">Preeclampsia during current pregnancy:
+        <span class="info-icon">i</span>
+                       <span class="tooltiptext">Please indicate your current diagnosis status. If the condition is diagnosed at a later stage, you may update this information accordingly.</span>
+    </label>
+    <input type="radio" name="preeclampsia" value="1" required> Yes
+    <input type="radio" name="preeclampsia" value="0" checked> No/Not known<br><br>
+
+    <label class="tooltip">Which region the <em>woman</em> was born in:
+        <span class="info-icon">i</span>
+              <span class="tooltiptext">Refers to the Standard Australian Classification of Countries (SACC) used by the Australian Bureau of Statistics.
+                  <a href="https://www.abs.gov.au/statistics/classifications/standard-australian-classification-countries-sacc/latest-release" target="_blank">Learn more</a>
+              </span>
+    </label>
+    <input type="radio" name="cob_region" value="1" checked style="margin-left: 0;"> Australia (includes External Territories)
+    <input type="radio" name="cob_region" value="2" required> Oceania and Antarctica (excludes Australia)
+    <input type="radio" name="cob_region" value="3" required> Europe
+    <input type="radio" name="cob_region" value="4" required> Africa
+    <input type="radio" name="cob_region" value="5" required> Asia
+    <input type="radio" name="cob_region" value="6" required> America
+    <input type="radio" name="cob_region" value="9" required> Not known<br><br><br>
+
+    <button type="submit">Predict</button>
+    <button type="reset">Reset</button><br><br>
+    </form><br>
+
+    {% if prediction is not none %}
+
+    <div class="info" >
+        <h2>Predicted probability of caesarean section following induction of labour:</h2>
+    </div>
+
+    <div class="bar-container">
+        <div class="indicator" id="indicator">
+             <span class="prediction" id="prediction">{{ prediction }}%</span>
+        </div>
+    </div>
+
+    <script>
+        var prediction = {{ prediction }};
+
+        // Calculate the position of the indicator
+        var indicatorPosition = (prediction / 100) * 100;
+        indicator.style.left = `calc(${indicatorPosition}% - 1px)`;
+
+        // Apply the position to the indicator
+        document.getElementById('indicator').style.left = `calc(${indicatorPosition}% - 1px)`;
+
+        // Get the color at the indicator position
+        var barContainer = document.querySelector('.bar-container');
+        var canvas = document.createElement('canvas');
+        canvas.width = barContainer.offsetWidth;
+        canvas.height = barContainer.offsetHeight;
+        var ctx = canvas.getContext('2d');
+        var gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+        gradient.addColorStop(0, 'lightgreen');
+        gradient.addColorStop(1, 'red');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        var colorData = ctx.getImageData(indicatorPosition / 100 * canvas.width, canvas.height / 2, 1, 1).data;
+        var color = `rgb(${colorData[0]}, ${colorData[1]}, ${colorData[2]})`;
+
+        // Apply the color to the prediction text
+        document.getElementById('prediction').style.color = color;
+
+    </script>
+    {% endif %}
+    <br><br>
+
+    {% if img_data %}
+    <div class="info" >
+        <h2>Plotting the contribution of each predictor, ranked by importance:</h2>
+     </div>
+
+    <div class="image-container" style="overflow: hidden; width: 100%;">
+    <img src="data:image/png;base64, {{ img_data }}" alt="Contribution of each predictor" style="max-width: 100%; height: auto;">
+    </div>
+
+
+    {% endif %}
+    <br>
+    <hr style="height: 5px; background-color: #2196F3; border: none;">
+
+
+    <script>
+           document.querySelector('button[type="reset"]').addEventListener('click', function() {
+          var img = document.querySelector('img');
+          if (img) {
+              img.style.display = 'none';
+          }
+          document.getElementById('indicator').style.left = '0%';
+          document.getElementById('prediction').innerHTML = '0%';
+          document.getElementById('prediction').style.color = 'lightgreen';
+
+        });
+    </script>
+
+
+    <p><strong>Please refer to the following paper for more information: </strong><br>
+      Externally validated machine learning models for predicting caesarean section following induction of labour using real-world,
+      population-based administrative datasets. Under review (will be updated once published).</p>
+
+    <p><b>Last updated date</b> 06/10/2024 v2.0</p>
+
+</body>
+</html>

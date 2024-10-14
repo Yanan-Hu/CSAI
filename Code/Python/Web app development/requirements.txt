@@ -1,0 +1,7 @@
+Flask==2.2.5
+Werkzeug==2.2.3
+gunicorn==20.0.4
+numpy==1.22
+xgboost==1.6.0
+shap==0.39.0
+matplotlib==3.4.3
