@@ -97,10 +97,8 @@ y_prob=best_pipeline_xgboost.predict_proba(X_geo)[:, 1]
 geo_data['predicted_risk'] = y_prob
 geo_data.to_csv('vpdc_val_risk.csv', index=False)
 
-
-
+# bar charts by decile of predicted probability in temporal cohort
 temporal_data = pd.read_sas('../data/cost_summary.sas7bdat', encoding='latin1')
-
 fig, ax = plt.subplots(figsize=(len(temporal_data['decile']), 4), dpi=100)
 ax.grid(True, axis='y', zorder=0)
 ax.bar(temporal_data['decile'],temporal_data['total_mom_birth_cost_Mean'], 0.5, yerr= temporal_data['total_mom_birth_cost_StdErr'], color='steelblue', zorder=2, capsize=3)
