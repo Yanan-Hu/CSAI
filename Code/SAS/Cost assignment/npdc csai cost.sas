@@ -1,7 +1,7 @@
 /******************************************************************************************************************************
 *Create date: 2 Nov 2024
 *Last update date: 18 Nov 2024
-*Author: Yanan Hu and Emily Callander
+*Author: Yanan Hu
 *Purpose: assess cost implication of risk group by the XGBoost model
 *****************************************************************************************************************************/
 
