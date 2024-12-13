@@ -1,3 +1,10 @@
+/******************************************************************************************************************************
+*Create date: 2 Nov 2024
+*Last update date: 18 Nov 2024
+*Author: Yanan Hu
+*Purpose: analyse cost by risk decile
+*****************************************************************************************************************************/
+
 libname csai "G:\Papers\Yanan Hu\PhD\Study#4\sas\clean data";
 libname cost "G:\Data in sas format\costs";
 
@@ -29,14 +36,11 @@ run;
 data cost_summary; set cost_summary;
 drop 
 _TYPE_  _PAGE_ _TABLE_;
-
 run;
 
 
 
 data csai.cost_summary; set cost_summary; run;
-
-
 
 
 proc sgplot data=ranked_data noautolegend;
@@ -94,4 +98,3 @@ vbar decile/response=total_mean_LENGTH_OF_STAY stat=mean limits=both fillattrs=(
 xaxis label="Predicted risk decile group (1:Lowest risk; 10:Highest risk)";
 yaxis label="Mean total length of stay";
 run;
-
