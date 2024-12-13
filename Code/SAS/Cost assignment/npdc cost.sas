@@ -19,7 +19,6 @@ if private_18=. then private_18=0;
 if private_19=. then private_19=0;
 if private_20=. then private_20=0;
 
-
 if paed_16=. then paed_16=1;
 if paed_17=. then paed_17=1;
 if paed_18=. then paed_18=1;
@@ -53,12 +52,10 @@ keep aborigin_mum_recode ABORIGIN_BUB_RECODE aihw_mom_ppn aihw_baby_ppn BDOB yr_
 run;
 
 
-
 *import inp dataset;
 data npdc_inp; set matern.npdc_inp;
 rename ar_drg=drg;
 run;
-
 
 
 ******************************************************
@@ -397,7 +394,6 @@ if FFyear=2019 then DRGcosta_inf=DRGcosta*1.20;
 if FFyear=2020 then DRGcosta_inf=DRGcosta*1.18;
 
 run;
-
 
 
 data mom_cost_public_short; set mom_cost_public;
@@ -833,5 +829,3 @@ data baby_cost; set baby_cost_private_short baby_cost_public_short; run;
 *save cost data;
 data cost.npdc_inp_baby_cost; set baby_cost;
 run;
-
-
