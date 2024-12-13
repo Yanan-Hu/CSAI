@@ -358,7 +358,6 @@ def subgroup_calib(data_name, subgroup_names, group_names, method, colors, X_tes
     bmi_labels = ['<18.5', '18.5 - 24.9', '25.0 - 29.9', '>29.9']
     X_test_copy['mother_age_group'] = pd.cut(X_test['mother_age'], bins=age_bins, labels=age_labels, right=False)
     X_test_copy['bmi_group'] = pd.cut(X_test['bmi'], bins=bmi_bins, labels=bmi_labels, right=False)
-
     X_test_copy['rurality_group'] = X_test['rurality'].replace(
         {1: 'Major city', 2: 'Inner regional', 3: 'Outer regional', 4: 'Remote', 5: 'Remote',
          9: 'Missing'})
