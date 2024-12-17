@@ -100,12 +100,19 @@ geo_data.to_csv('vpdc_val_risk.csv', index=False)
 # bar charts by decile of predicted probability in temporal cohort
 temporal_data = pd.read_sas('../data/cost_summary.sas7bdat', encoding='latin1')
 fig, ax = plt.subplots(figsize=(len(temporal_data['decile']), 4), dpi=100)
+group_labels = []
+for _, row in temporal_data.iterrows():
+    label = f"{int(row['decile'])}\n(n={row['total_mom_birth_cost_N']:,.0f},\nCS={row['total_mom_birth_cost_CS']:.1f}%)"
+    group_labels.append(label)
 ax.grid(True, axis='y', zorder=0)
-ax.bar(temporal_data['decile'],temporal_data['total_mom_birth_cost_Mean'], 0.5, yerr= temporal_data['total_mom_birth_cost_StdErr'], color='steelblue', zorder=2, capsize=3)
-ax.set_xlabel('Predicted risk group, decile')
+bars = ax.bar(temporal_data['decile'], temporal_data['total_mom_birth_cost_Mean'], 0.5, yerr= temporal_data['total_mom_birth_cost_StdErr'], color='steelblue', zorder=2, capsize=3)
+for bar, value in zip(bars,temporal_data['total_mom_birth_cost_Mean']):
+    ax.text (bar.get_x() + bar.get_width()/2, bar.get_height()+300, f"${value:,.0f}", ha='center', va='bottom')
+ax.set_xlabel('Predicted probability group, decile')
 ax.set_ylabel('Mean maternal inpatient cost, $')
-ax.set_ylim(0, 13000)
-ax.set_xticks(temporal_data['decile'])
+ax.set_ylim(0, 14000)
+ax.set_xticks(temporal_data['decile'].astype(int))
+ax.set_xticklabels(group_labels)
 plt.tight_layout ()
 ax.set_title('Temporal Validation')
 plt.savefig('../plot/mom_birth_cost.png', bbox_inches='tight')
@@ -113,12 +120,19 @@ plt.clf()
 
 
 fig, ax = plt.subplots(figsize=(len(temporal_data['decile']), 4), dpi=100)
+group_labels = []
+for _, row in temporal_data.iterrows():
+    label = f"{int(row['decile'])}\n(n={row['total_baby_birth_cost_N']:,.0f},\nCS={row['total_baby_birth_cost_CS']:.1f}%)"
+    group_labels.append(label)
 ax.grid(True, axis='y', zorder=0)
-ax.bar(temporal_data['decile'],temporal_data['total_baby_birth_cost_Mean'], 0.5, yerr= temporal_data['total_baby_birth_cost_StdErr'], color='steelblue', zorder=2, capsize=3)
-ax.set_xlabel('Predicted risk group, decile')
+bars = ax.bar(temporal_data['decile'],temporal_data['total_baby_birth_cost_Mean'], 0.5, yerr= temporal_data['total_baby_birth_cost_StdErr'], color='steelblue', zorder=2, capsize=3)
+for bar, value in zip(bars, temporal_data['total_baby_birth_cost_Mean']):
+    ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 400, f"${value:,.0f}", ha='center', va='bottom')
+ax.set_xlabel('Predicted probability group, decile')
 ax.set_ylabel('Mean neonatal inpatient cost, $')
-ax.set_ylim(0, 13000)
-ax.set_xticks(temporal_data['decile'])
+ax.set_ylim(0, 14000)
+ax.set_xticks(temporal_data['decile'].astype(int))
+ax.set_xticklabels(group_labels)
 plt.tight_layout ()
 ax.set_title('Temporal Validation')
 plt.savefig('../plot/baby_birth_cost.png', bbox_inches='tight')
@@ -126,12 +140,19 @@ plt.clf()
 
 
 fig, ax = plt.subplots(figsize=(len(temporal_data['decile']), 4), dpi=100)
+group_labels = []
+for _, row in temporal_data.iterrows():
+    label = f"{int(row['decile'])}\n(n={row['mom_mean_LENGTH_OF_STAY_N']:,.0f},\nCS={row['mom_mean_LENGTH_OF_STAY_CS']:.1f}%)"
+    group_labels.append(label)
 ax.grid(True, axis='y', zorder=0)
-ax.bar(temporal_data['decile'],temporal_data['mom_mean_LENGTH_OF_STAY_Mean'], 0.5, yerr= temporal_data['mom_mean_LENGTH_OF_STAY_StdErr'], color='steelblue', zorder=2, capsize=3)
-ax.set_xlabel('Predicted risk group, decile')
+bars = ax.bar(temporal_data['decile'],temporal_data['mom_mean_LENGTH_OF_STAY_Mean'], 0.5, yerr= temporal_data['mom_mean_LENGTH_OF_STAY_StdErr'], color='steelblue', zorder=2, capsize=3)
+for bar, value in zip(bars, temporal_data['mom_mean_LENGTH_OF_STAY_Mean']):
+    ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() +0.2, f"{value:,.1f}", ha='center', va='bottom')
+ax.set_xlabel('Predicted probability group, decile')
 ax.set_ylabel('Mean maternal length of stay, day')
 ax.set_ylim(0, 5)
-ax.set_xticks(temporal_data['decile'])
+ax.set_xticks(temporal_data['decile'].astype(int))
+ax.set_xticklabels(group_labels)
 plt.tight_layout ()
 ax.set_title('Temporal Validation')
 plt.savefig('../plot/mom_LENGTH_OF_STAY.png', bbox_inches='tight')
@@ -139,12 +160,19 @@ plt.clf()
 
 
 fig, ax = plt.subplots(figsize=(len(temporal_data['decile']), 4), dpi=100)
+group_labels = []
+for _, row in temporal_data.iterrows():
+    label = f"{int(row['decile'])}\n(n={row['baby_mean_LENGTH_OF_STAY_N']:,.0f},\nCS={row['baby_mean_LENGTH_OF_STAY_CS']:.1f}%)"
+    group_labels.append(label)
 ax.grid(True, axis='y', zorder=0)
-ax.bar(temporal_data['decile'],temporal_data['baby_mean_LENGTH_OF_STAY_Mean'], 0.5, yerr= temporal_data['baby_mean_LENGTH_OF_STAY_StdErr'], color='steelblue', zorder=2, capsize=3)
-ax.set_xlabel('Predicted risk group, decile')
+bars = ax.bar(temporal_data['decile'],temporal_data['baby_mean_LENGTH_OF_STAY_Mean'], 0.5, yerr= temporal_data['baby_mean_LENGTH_OF_STAY_StdErr'], color='steelblue', zorder=2, capsize=3)
+for bar, value in zip(bars, temporal_data['baby_mean_LENGTH_OF_STAY_Mean']):
+    ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() +0.2, f"{value:,.1f}", ha='center', va='bottom')
+ax.set_xlabel('Predicted probability group, decile')
 ax.set_ylabel('Mean neonatal length of stay, day')
 ax.set_ylim(0, 5)
-ax.set_xticks(temporal_data['decile'])
+ax.set_xticks(temporal_data['decile'].astype(int))
+ax.set_xticklabels(group_labels)
 plt.tight_layout ()
 ax.set_title('Temporal Validation')
 plt.savefig('../plot/baby_LENGTH_OF_STAY.png', bbox_inches='tight')
