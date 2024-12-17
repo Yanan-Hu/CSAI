@@ -5,6 +5,7 @@
 *Purpose: assess cost implication of risk group by the XGBoost model
 *****************************************************************************************************************************/
 
+
 libname cost "G:\Data in sas format\costs";
 libname csai "G:\Papers\Yanan Hu\PhD\Study#4\sas\clean data";
 
