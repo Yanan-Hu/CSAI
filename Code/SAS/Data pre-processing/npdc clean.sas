@@ -203,7 +203,6 @@ by aihw_baby_ppn;
 run;
 
 
-
 *add SES quintiles from SLA;
 data seifa_2011sla; set matern.seifa_2011sla;
 if irsd_decile in (1,2) then seifa=1;
