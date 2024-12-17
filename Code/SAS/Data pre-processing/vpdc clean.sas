@@ -10,7 +10,6 @@
 libname matern "G:\Data in sas format";
 
 
-
 ****VIC; 
 *Note: Only include women without any medical conditions and obstetric complications;
 data vpdc_main; set matern.vpdc_main; 
@@ -107,7 +106,6 @@ rename MumCountryOfBirth=cob;
 run;
 
 
-
 *grouping cob to regions;
 data cobsacc_grouping; set matern.cobsacc_grouping;
 if major_group='Australia (includes External Territories)' then cob_region=1;
@@ -127,7 +125,6 @@ data vpdc_main; merge vpdc_main (in=a) cobsacc_grouping;
 by cob;
 if a then output; 
 run;
-
 
 
 data vpdc_main; set vpdc_main;
@@ -169,7 +166,6 @@ else num_visitgp=9;
 run;
 
 
-
 *limit to varaible for use;
 data vpdc_main; set vpdc_main;
 keep aihw_baby_ppn aihw_mom_ppn state year gravidity parity gest_weeks gest_weeks_first_visit num_ant_visit atsi smoke_b20 smoke_a20 pre_diab pre_hyper seifa preeclampsia
@@ -185,6 +181,3 @@ run;
 *save data (n=14,755);
 libname phd "G:\Papers\Yanan Hu\PhD\clean data";
 data phd.vpdc_main;set vpdc_main; run;
-
-
-
