@@ -334,6 +334,3 @@ run;
 *save data (n=67,554);
 libname phd "G:\Papers\Yanan Hu\PhD\clean data";
 data phd.qpdc_main;set qpdc_main; run;
-
-
-
