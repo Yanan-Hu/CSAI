@@ -1,0 +1,20 @@
+{
+  "_captured_at": "2026-07-11T06:10:00Z",
+  "_captured_run_id": "r_b14ec12945074a5ba6a02ec7178cfdce",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "NOTE: PROC RANK elapsed:",
+    "NOTE: PROC TABULATE",
+    "NOTE: FORMAT bmi2dec defined (1 ranges).",
+    "NOTE: PROC SGPLOT data=ranked_data"
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}

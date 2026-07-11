@@ -1,0 +1,23 @@
+
+NOTE: Option OBS changed to 100.
+NOTE: DATA npdc_main
+
+NOTE: Processing inline DATALINES (10 lines)
+
+NOTE: Read 10 rows from DATALINES.
+NOTE: Wrote npdc_main (10 rows, 4 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA npdc_main
+
+
+NOTE: Read 10 rows from npdc_main.
+NOTE: Wrote npdc_main (10 rows, 8 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC TABULATE
+NOTE: PROC PRINT data=npdc_main
+
+NOTE: PROC PRINT completed: 10 observations printed, 6 variables

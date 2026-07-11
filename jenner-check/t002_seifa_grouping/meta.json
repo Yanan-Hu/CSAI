@@ -1,0 +1,7 @@
+{
+  "bundle": "t002_seifa_grouping",
+  "source_file": "Code/SAS/Data pre-processing/npdc clean.sas",
+  "source_blob_sha": "d474cbe3b70b3477d93e544626f529bc3f43f25f",
+  "source_commit": "4c1f22cbe7bb71c157fc830ca2cc67f1a8fdbeac",
+  "notes": "SEIFA (socio-economic disadvantage) IRSD-decile-to-quintile recode, PROC SORT + merge onto the main cohort keyed on SLA_2011_CODE. The 15 SLA_2011_CODE/IRSD_decile rows are the real first data rows of the repo's own SEIFA_2011SLA.csv, inlined via datalines (the shipped runner uploads script text only, not sibling data files, so the bundle must be self-contained). The original npdc_main cohort (127,673 rows, private linked hospital data) is substituted with a 15-row mock cohort whose SLA codes match the inlined SEIFA rows. Recode thresholds and merge logic unchanged from source."
+}

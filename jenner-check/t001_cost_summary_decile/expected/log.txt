@@ -1,0 +1,56 @@
+
+NOTE: Option OBS changed to 100.
+NOTE: DATA npdc_val_risk_cost
+
+NOTE: Processing inline DATALINES (15 lines)
+
+NOTE: Read 15 rows from DATALINES.
+NOTE: Wrote npdc_val_risk_cost (15 rows, 9 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA npdc_val_risk_cost
+
+
+NOTE: Read 15 rows from npdc_val_risk_cost.
+NOTE: Wrote npdc_val_risk_cost (15 rows, 9 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC RANK data=npdc_val_risk_cost out=Some("ranked_data") groups=10
+
+
+NOTE: Read 15 rows from /tmp/work/r_b14ec12945074a5ba6a02ec7178cfdce/work/02194455-090c-4fd5-b747-9577a8dc2b93/npdc_val_risk_cost.avro.
+NOTE: Wrote /tmp/work/r_b14ec12945074a5ba6a02ec7178cfdce/work/02194455-090c-4fd5-b747-9577a8dc2b93/ranked_data.avro (15 rows, 10 columns).
+NOTE: PROC RANK elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA ranked_data
+
+
+NOTE: Read 15 rows from ranked_data.
+NOTE: Wrote ranked_data (15 rows, 7 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC TABULATE
+NOTE: DATA cost_summary
+
+
+NOTE: Read 1 rows from cost_summary.
+NOTE: Wrote cost_summary (1 rows, 60 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC PRINT data=cost_summary
+
+NOTE: PROC PRINT completed: 1 observations printed, 60 variables
+NOTE: PROC FORMAT library=WORK
+
+NOTE: FORMAT bmi2dec defined (1 ranges).
+NOTE: PROC SGPLOT data=ranked_data
+
+NOTE: PROC SGPLOT output written to: ./ods_output/sgplot.svg
+NOTE: PROC SGPLOT data=ranked_data
+
+NOTE: PROC SGPLOT output written to: ./ods_output/sgplot1.svg

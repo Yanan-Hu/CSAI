@@ -1,0 +1,18 @@
+{
+  "_captured_at": "2026-07-11T06:25:00Z",
+  "_captured_run_id": "r_e6259a004d3c45daac167eb554df81ff",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "NOTE: Read 7 rows from DATALINES.",
+    "NOTE: PROC FREQ statement used."
+  ],
+  "log_does_not_contain": [
+    "ERROR:",
+    "[JENNER-ERROR"
+  ],
+  "diagnostics": {
+    "parse_warnings": [],
+    "runtime_warnings": []
+  }
+}

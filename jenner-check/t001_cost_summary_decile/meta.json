@@ -1,0 +1,7 @@
+{
+  "bundle": "t001_cost_summary_decile",
+  "source_file": "Code/SAS/Cost assignment/cost_summary.sas",
+  "source_blob_sha": "837c212eeec8d5ee6acf2af90c00a7a35ffc95a8",
+  "source_commit": "4c1f22cbe7bb71c157fc830ca2cc67f1a8fdbeac",
+  "notes": "PROC RANK deciles predicted_risk into 10 groups, PROC TABULATE summarizes cost/LOS fields by decile, PROC SGPLOT charts mean BMI and mean maternal cost by decile. Original reads csai.npdc_val_risk_cost from a private LIBNAME (de-identified AIHW linkage data); substituted a 15-row mock cohort with the same predicted_risk/bmi/mother_age/cost columns via inline datalines. Logic, PROC options and output semantics unchanged."
+}

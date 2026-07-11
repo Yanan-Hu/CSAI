@@ -1,0 +1,7 @@
+{
+  "bundle": "t003_drg_cost_load",
+  "source_file": "Code/SAS/Cost assignment/npdc cost.sas",
+  "source_blob_sha": "c0146719cb6ec89068d13c29bc7982e4a4974aaa",
+  "source_commit": "4c1f22cbe7bb71c157fc830ca2cc67f1a8fdbeac",
+  "notes": "DRG cost-table missing-value imputation (private_*/paed_*/cost_*/ave_charge_* sentinel defaults) plus the obstetric-admission ARRAY/substr diagnosis-code scan. The 7 DRG/cost rows are the real first data rows of the repo's own drgcost_new.csv (thousands separators stripped for plain-numeric datalines; values otherwise unchanged), inlined so the bundle is self-contained (shipped runner uploads script text only). The private matern.npdc_inp linkage cohort is substituted with a 5-row mock admission cohort joined on drg. Imputation defaults and array-scan logic unchanged from source."
+}
