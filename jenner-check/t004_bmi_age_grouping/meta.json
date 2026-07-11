@@ -1,0 +1,7 @@
+{
+  "bundle": "t004_bmi_age_grouping",
+  "source_file": "Code/SAS/Data pre-processing/npdc clean.sas",
+  "source_blob_sha": "d474cbe3b70b3477d93e544626f529bc3f43f25f",
+  "source_commit": "4c1f22cbe7bb71c157fc830ca2cc67f1a8fdbeac",
+  "notes": "BMI computed from height/weight with the script's sentinel-value convention (999/99/9999 for missing/unrealistic rather than deletion, per the script's own header note), motheragegp/bmigp categorical derivation, PROC TABULATE cross-tab by year (YEAR kept in the CLASS statement, matching the source script's own CLASS list at npdc clean.sas:305-306). Original cohort (private linkage data) substituted with a 10-row mock cohort covering zero-weight/zero-height edge cases. Thresholds and sentinel logic unchanged from source."
+}
